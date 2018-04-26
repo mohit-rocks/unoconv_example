@@ -1,0 +1,16 @@
+{
+  "name": "drupal/unoconv_example",
+  "type": "drupal-module",
+  "description": "Unoconv Example",
+  "keywords": ["Drupal"],
+  "license": "GPL-2.0+",
+  "homepage": "https://www.drupal.org/project/unoconv_example",
+  "minimum-stability": "dev",
+  "support": {
+    "issues": "https://www.drupal.org/project/issues/unoconv_example",
+    "source": "http://cgit.drupalcode.org/unoconv_example"
+  },
+  "require": {
+    "php-unoconv/php-unoconv": "~0.2"
+  }
+}

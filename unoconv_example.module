@@ -1,0 +1,33 @@
+<?php
+
+/**
+ * @file
+ * Contains unoconv_example.module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\file\Entity\File;
+
+/**
+ * Implements hook_ENTITY_TYPE_presave().
+ */
+function unoconv_example_media_presave(EntityInterface $entity) {
+
+  $original_file_id = $entity->get('field_document_file')->getValue();
+  /** @var \Drupal\file\Entity\File $file */
+  $file = File::load($original_file_id[0]['target_id']);
+
+  // Get actual path.
+  $actual_path = \Drupal::service('file_system')->realpath($file->getFileUri());
+
+  // Prepare destination path.
+  $file_directory_path = \Drupal::service('file_system')->realpath(file_default_scheme() . "://");
+  $new_filename = pathinfo($file->getFilename(), PATHINFO_FILENAME) . '.pdf';
+  $destination_path = $file_directory_path . '/preview/' . $new_filename;
+  $destination_uri = file_default_scheme() . '://preview/' . $new_filename;
+
+  $transcode_service = \Drupal::service('unoconv_example.transcode');
+  $preview_file = $transcode_service->transcode($actual_path, $destination_path, $destination_uri);
+
+  $entity->set('field_document_media_preview1', ['target_id' => $preview_file->id()]);
+}

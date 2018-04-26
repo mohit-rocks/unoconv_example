@@ -1,0 +1,5 @@
+name: Unoconv Example
+type: module
+description: Unoconv Example
+core: 8.x
+package: Custom

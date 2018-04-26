@@ -1,0 +1,5 @@
+services:
+  unoconv_example.transcode:
+    class: Drupal\unoconv_example\UnoconvTranscode
+    arguments: ['@file_system']
+
